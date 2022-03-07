@@ -25,3 +25,19 @@ resource "aws_internet_gateway" "devops-mtc-igw" {
     Name = "devops-igw"
   }
 }
+
+resource "aws_route_table" "devops-mtc-rt" {
+  vpc_id = aws_vpc.devops-mtc-vpc.id
+
+  tags = {
+    Name = "devops-rt"
+  }
+}
+
+resource "aws_route" "default_route" {
+  route_table_id         = aws_route_table.devops-mtc-rt.id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = aws_internet_gateway.devops-mtc-igw.id
+  #vpc_peering_connection_id = "pcx-45ff3dc1"
+  #depends_on                = [aws_route_table.testing]
+}
