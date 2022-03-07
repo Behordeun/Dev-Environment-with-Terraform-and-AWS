@@ -7,3 +7,21 @@ resource "aws_vpc" "devops-mtc-vpc" {
   }
 }
 
+resource "aws_subnet" "devops-mtc-subnet" {
+  vpc_id     = aws_vpc.devops-mtc-vpc.id
+  cidr_block = "10.123.1.0/24"
+  map_public_ip_on_launch = true
+  availability_zone = "us-east-1a"
+
+  tags = {
+    Name = "Main"
+  }
+}
+
+resource "aws_internet_gateway" "devops-mtc-igw" {
+  vpc_id = aws_vpc.devops-mtc-vpc.id
+
+  tags = {
+    Name = "devops-igw"
+  }
+}
