@@ -14,7 +14,7 @@ resource "aws_subnet" "devops-mtc-subnet" {
   availability_zone = "us-east-1a"
 
   tags = {
-    Name = "Main"
+    Name = "devops-subnet"
   }
 }
 
