@@ -41,3 +41,8 @@ resource "aws_route" "default_route" {
   #vpc_peering_connection_id = "pcx-45ff3dc1"
   #depends_on                = [aws_route_table.testing]
 }
+
+resource "aws_route_table_association" "devops-mtc-rt-assoc" {
+  subnet_id      = aws_subnet.devops-mtc-subnet.id
+  route_table_id = aws_route_table.devops-mtc-rt.id
+}
