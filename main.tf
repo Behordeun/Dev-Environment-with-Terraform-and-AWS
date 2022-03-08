@@ -66,3 +66,17 @@ resource "aws_security_group" "devops-mtc-sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+resource "aws_key_pair" "devops-mtc-auth" {
+    key_name = "devops-mtc-key"
+    public_key = file("~/.ssh/devops-mtckey.pub")
+}
+
+resource "aws_instance" "devops-mtc-node" {
+    instance_type = "t2.micro"
+    ami = data.aws_ami.server_ami.id
+
+    tags = {
+      name = "devops-node"
+    }
+}
