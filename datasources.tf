@@ -8,3 +8,8 @@ data "aws_ami" "server_ami" {
     }
 }
 
+resource "aws_key_pair" "devops-mtc-auth" {
+    key_name = "devops-mtc-key"
+    public_key = file("~/.ssh/devops-mtckey.pub")
+}
+
