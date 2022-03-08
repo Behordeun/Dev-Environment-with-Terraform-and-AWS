@@ -46,3 +46,23 @@ resource "aws_route_table_association" "devops-mtc-rt-assoc" {
   subnet_id      = aws_subnet.devops-mtc-subnet.id
   route_table_id = aws_route_table.devops-mtc-rt.id
 }
+
+resource "aws_security_group" "devops-mtc-sg" {
+  name        = "devops-sg"
+  description = "devops security group"
+  vpc_id      = aws_vpc.devops-mtc-vpc.id
+
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
