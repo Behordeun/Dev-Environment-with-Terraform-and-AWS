@@ -79,4 +79,12 @@ resource "aws_instance" "devops-mtc-node" {
     tags = {
       name = "devops-node"
     }
+
+    key_name = aws_key_pair.devops-mtc-auth.id
+    vpc_security_group_ids = [aws_security_group.devops-mtc-sg.id]
+    subnet_id = aws_subnet.devops-mtc-subnet.id
+
+    root_block_device {
+      volume_size = 10
+    }
 }
