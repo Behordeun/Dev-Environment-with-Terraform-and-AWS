@@ -26,10 +26,10 @@ Next, we proceed to create resources in our AWS instance, by automating the proc
 8. Key Pair
 9. Ubuntu Server (Here, ubuntu 20.0.4 was chosen).
    Under resource 9:
-    - we increased the disk space from the default 8Gb to 10Gb; under the ***root_block_device***.
-    - We also specified a provisioner and an interpreter which informs the system which scripting tool to use based on the host operating system.
+   - we increased the disk space from the default 8Gb to 10Gb; under the ***root_block_device***.
+   - We also specified a provisioner and an interpreter which informs the system which scripting tool to use based on the host operating system.
 
-### How to use this repo
+## How to use this repo
 
 Run git clone [https://github.com/Behordeun/Dev-Environment-with-Terraform-and-AWS.git](https://github.com/Behordeun/Dev-Environment-with-Terraform-and-AWS.git)
 
@@ -61,7 +61,7 @@ If you run **terraform apply**, you will get a prompt to type **yes**. If you do
 terraform apply -auto-approve
 ```
 
-### Tips
+## Tips
 
 Here are a few terraform commands and their functions.
 
@@ -77,7 +77,7 @@ These and more are Terraform commands.
 
 Feel free to fork this repo, raise a **pull request** to contribute to this project, and raise an issue if you encounter any challenge.
 
-**About the author:**
+## **About the author**
 
 **Muhammad Abiodun Sulaiman** is a graduate of **Mathematics and Statistics** from the prestigious **Federal University of Technology Minna, Niger State, Nigeria** with Second-Class Honors. He is a smart, innovative, and seasoned analytics expert with a track record dating back to his undergraduate days.
 
