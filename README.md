@@ -14,6 +14,21 @@ This project introduces beginners to building a dev environment with **Terraform
    - AWS Toolkit
    - Remote - SSH
 
+Next, we proceed to create resources in our AWS instance, by automating the process right from our terraform files. 9 resources were created in our AWS instance right from terraform. These resources are:
+
+1. Virtual Private Cloud (VPC).
+2. Subnet into the VPC.
+3. Internet Gateway.
+4. Route Table.
+5. Route.
+6. Route Table Association.
+7. Security Group
+8. Key Pair
+9. Ubuntu Server (Here, ubuntu 20.0.4 was chosen).
+   Under resource 9:
+    - we increased the disk space from the default 8Gb to 10Gb; under the ***root_block_device***.
+    - We also specified a provisioner and an interpreter which informs the system which scripting tool to use based on the host operating system.
+
 ### How to use this repo
 
 Run git clone [https://github.com/Behordeun/Dev-Environment-with-Terraform-and-AWS.git](https://github.com/Behordeun/Dev-Environment-with-Terraform-and-AWS.git)
@@ -50,19 +65,19 @@ terraform apply -auto-approve
 
 Here are a few terraform commands and their functions.
 
-* `terraform init -upgrade` - Reinitialize terraform to catch up with updates in your files.
-* `terraform state list` - Lists all the resources in your instance.
-* `terraform state show <resource name>` - Displays all properties of the specified resource.
-* `terraform destroy` - Destroys and delete all the resources in your instance.
-* `terraform apply -replace <resource name>` - run the creation of resources again, while making a change to the specified resource.
-* `terraform apply -refresh` - Updates the resources without having to destroy the resources.
-* `terraform console` - An interpreter that you can use to evaluate Terraform expressions and explore your Terraform project's state.
+- `terraform init -upgrade` - Reinitialize terraform to catch up with updates in your files.
+- `terraform state list` - Lists all the resources in your instance.
+- `terraform state show <resource name>` - Displays all properties of the specified resource.
+- `terraform destroy` - Destroys and delete all the resources in your instance.
+- `terraform apply -replace <resource name>` - run the creation of resources again, while making a change to the specified resource.
+- `terraform apply -refresh` - Updates the resources without having to destroy the resources.
+- `terraform console` - An interpreter that you can use to evaluate Terraform expressions and explore your Terraform project's state.
 
 These and more are Terraform commands.
 
 Feel free to fork this repo, raise a **pull request** to contribute to this project, and raise an issue if you encounter any challenge.
 
-__About the author:__
+**About the author:**
 
 **Muhammad Abiodun Sulaiman** is a graduate of **Mathematics and Statistics** from the prestigious **Federal University of Technology Minna, Niger State, Nigeria** with Second-Class Honors. He is a smart, innovative, and seasoned analytics expert with a track record dating back to his undergraduate days.
 
@@ -80,17 +95,17 @@ Muhammad currently works as a Business Intelligence Specialist at Stata Insight 
 
 Muhammad had over the last 4 years mentored over 20 data enthusiasts who are into either Data Analytics,  Business Analytics or Artificial Intelligence.
 
-__Author:__ Muhammad Abiodun Sulaiman
+**Author:** Muhammad Abiodun Sulaiman
 
-__Email:__ abiodun.msulaiman@gmail.com
+**Email:** abiodun.msulaiman@gmail.com
 
-__LinkedIn:__ [Muhammad Abiodun Sulaiman](https://www.linkedin.com/in/muhammad-abiodun-sulaiman)
+**LinkedIn:** [Muhammad Abiodun Sulaiman](https://www.linkedin.com/in/muhammad-abiodun-sulaiman)
 
-__Twitter:__ [@Prince_Analyst](https://www.twitter.com/Prince_Analyst)
+**Twitter:** [@Prince_Analyst](https://www.twitter.com/Prince_Analyst)
 
-__Facebook:__ [Muhammad Abiodun Sulaiman](https://www.facebook.com/muhammad.herbehordeun)
+**Facebook:** [Muhammad Abiodun Sulaiman](https://www.facebook.com/muhammad.herbehordeun)
 
-__Tel:__ +(234)8108316393, +(234)7012284454
+**Tel:** +(234)8108316393, +(234)7012284454
 
 [![My Pix.png](https://user-images.githubusercontent.com/45925374/140731559-e56f334c-8e89-48b8-92f7-fbe66a7447d9.png)](https://user-images.githubusercontent.com/45925374/140731559-e56f334c-8e89-48b8-92f7-fbe66a7447d9.png)
 
