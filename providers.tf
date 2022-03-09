@@ -14,4 +14,3 @@ provider "aws" {
   profile                  = "vscode"
   region                   = "us-east-1"
 }
-
