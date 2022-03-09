@@ -1,3 +1,4 @@
+# Create a VPC resource
 resource "aws_vpc" "devops-mtc-vpc" {
   cidr_block           = "10.123.0.0/16"
   enable_dns_hostnames = true
@@ -7,6 +8,7 @@ resource "aws_vpc" "devops-mtc-vpc" {
   }
 }
 
+# Create a subnet resource in the VPC
 resource "aws_subnet" "devops-mtc-subnet" {
   vpc_id                  = aws_vpc.devops-mtc-vpc.id
   cidr_block              = "10.123.1.0/24"
@@ -18,6 +20,7 @@ resource "aws_subnet" "devops-mtc-subnet" {
   }
 }
 
+# Create an internet gateway resource
 resource "aws_internet_gateway" "devops-mtc-igw" {
   vpc_id = aws_vpc.devops-mtc-vpc.id
 
@@ -26,6 +29,7 @@ resource "aws_internet_gateway" "devops-mtc-igw" {
   }
 }
 
+# Create a route table resource in the VPC
 resource "aws_route_table" "devops-mtc-rt" {
   vpc_id = aws_vpc.devops-mtc-vpc.id
 
@@ -34,6 +38,7 @@ resource "aws_route_table" "devops-mtc-rt" {
   }
 }
 
+# Create a route resource
 resource "aws_route" "default_route" {
   route_table_id         = aws_route_table.devops-mtc-rt.id
   destination_cidr_block = "0.0.0.0/0"
@@ -42,11 +47,13 @@ resource "aws_route" "default_route" {
   #depends_on                = [aws_route_table.testing]
 }
 
+# Create a route table association
 resource "aws_route_table_association" "devops-mtc-rt-assoc" {
   subnet_id      = aws_subnet.devops-mtc-subnet.id
   route_table_id = aws_route_table.devops-mtc-rt.id
 }
 
+# Create a security group resource
 resource "aws_security_group" "devops-mtc-sg" {
   name        = "devops-sg"
   description = "devops security group"
@@ -56,30 +63,32 @@ resource "aws_security_group" "devops-mtc-sg" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["0.0.0.0/0"] # You should avoid this in production, but it's useful for local testing.
+    # You should specify a specific ip address that can access your instance. Usually, it should be your private ip address.
   }
 
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["0.0.0.0/0"] # Leave this unchanged, so you can access the external internet.
   }
 }
 
+# Create a key pair
 resource "aws_key_pair" "devops-mtc-auth" {
   key_name   = "devops-mtc-key"
   public_key = file("~/.ssh/devops-mtckey.pub")
 }
 
+# Create an instance
 resource "aws_instance" "devops-mtc-node" {
   instance_type          = "t2.micro"
   ami                    = data.aws_ami.server_ami.id
   key_name               = aws_key_pair.devops-mtc-auth.id
   vpc_security_group_ids = [aws_security_group.devops-mtc-sg.id]
   subnet_id              = aws_subnet.devops-mtc-subnet.id
-  user_data              = "${file("userdata.tpl")}"
-
+  user_data              = file("userdata.tpl")
 
   root_block_device {
     volume_size = 10
@@ -87,5 +96,17 @@ resource "aws_instance" "devops-mtc-node" {
   tags = {
     name = "devops-node"
   }
+
+  # Provisioner(s) are a last resort. You will want to avoid using them as mush as possible.
+  provisioner "local-exec" {
+    command = templatefile("${var.host_os}-ssh-config.tpl", {
+      hostname     = self.public_ip,
+      user         = "ubuntu",
+      identityfile = "~/.ssh/devops-mtckey",
+    })
+
+    interpreter = var.host_os == "windows" ? ["powershell", "-command"] : ["bash", "-c"] # For windows users
+  }
 }
+
 
